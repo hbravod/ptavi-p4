@@ -27,15 +27,16 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
         (all requests will be handled by this method)
         """
         self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
-        print(self.client_address)
         for line in self.rfile:
             if line:
                 if line.decode('utf-8')[:8] == 'REGISTER':
-                    print("El cliente nos manda:", line.decode('utf-8'))
                     ip_user = line.decode('utf-8')[13:-10]
                     self.dic_client[ip_user] = self.client_address[0]
+                elif line.decode('utf-8')[:7] == 'Expires':                
+                    if line.decode('utf-8').split(' ')[1][0] == '0':
+                        del self.dic_client[ip_user]
+            print(line.decode('utf-8'), end="")
         print(self.dic_client)
-                
 
 if __name__ == "__main__":
     # Listens at localhost ('') port 6001 
