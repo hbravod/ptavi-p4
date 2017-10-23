@@ -8,6 +8,12 @@ import socketserver
 import sys
 
 
+PORT = int(sys.argv[1])
+
+if len(sys.argv) < 2:
+    print("Usage: pyhton3 server.py PORT")
+
+
 class EchoHandler(socketserver.DatagramRequestHandler):
     """
     Echo server class
@@ -26,7 +32,7 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 if __name__ == "__main__":
     # Listens at localhost ('') port 6001 
     # and calls the EchoHandler class to manage the request
-    serv = socketserver.UDPServer(('', 6001), EchoHandler) 
+    serv = socketserver.UDPServer(('', PORT), EchoHandler) 
 
     print("Lanzando servidor UDP de eco...")
     try:
