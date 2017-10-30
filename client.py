@@ -22,7 +22,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((SERVER, PORT))
     print("Enviando:", LINE)
     if sys.argv[3] == "register":
-        my_socket.send(bytes('REGISTER sip:'+LINE+' SIP/2.0\r\nExpires: '+EXPIRE+'\r\n','utf-8') + b'\r\n')
+        my_socket.send(bytes('REGISTER sip:'+LINE+' SIP/2.0\r\nExpires: '+EXPIRE+'\r\n', 'utf-8') + b'\r\n')
     data = my_socket.recv(1024)
     print('Recibido -- ', data.decode('utf-8'))
 
